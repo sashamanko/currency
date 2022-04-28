@@ -5,81 +5,65 @@ import newElements from "./domBuiler.js";
 // Elements
 // __________________________________________________
 
-// Date itement
-export const dateElement = () => {
-  return newElements({
-      tag: 'time',
-      textContent: moment().locale('uk').format('l'),
-      classList: {
-        0: 'moment__date',
-      },
-    })
-  }
+// Date element
+export const dateElement = newElements(`
+  <time>${moment().locale('uk').format('L')}</time>
+`)
 
 // Search currencies item
-export const searchCurrenciesItem = (item) => {
+export const searchCurrenciesItem2 = (item, arr) => {
 
-  const spanSale = newElements({
-    tag: 'span',
-    textContent: parseFloat(item.sale).toFixed(2),
-    classList: {
-      0: 'currencies__search__item__currensy-text__sale',
-    }
-  })
+  const li = document.createElement('ul');
+  const currenciesTitle = document.createElement('h4');
+  const spanBaseCcy = document.createElement('span');
+  const arrows = document.createElement('i');
+  const spanCcy = document.createElement('span');
+  
+  
+  li.className = 'currencies__search__item d-flex';
+  currenciesTitle.className = 'currencies__search__item__currensy-title d-flex'
+  spanBaseCcy.className = 'currencies__search__item__currensy-title__base-ccy';
+  arrows.className = 'currencies__search__item__currensy-title__arrows ri-arrow-left-right-line';
 
-  const spanBuy = newElements({
-    tag: 'span',
-    textContent: parseFloat(item.buy).toFixed(2),
-    classList: {
-      0: 'currencies__search__item__currensy-text__buy',
-    }
-  })
+  spanCcy.textContent = item.currency;
+  spanBaseCcy.textContent = item.baseCurrency;
+  
+  li.append(currenciesTitle)
 
-  const spanBaseCcy = newElements({
-    tag: 'span',
-    textContent: item.base_ccy,
-    classList: {
-      0: 'currencies__search__item__currensy-title__base-ccy',
-    }
-  })
+  arr.forEach(el => {
+    const span = document.createElement('span');
 
-  const arrows = newElements({
-    tag: 'i',
-    classList: {
-      0: 'currencies__search__item__currensy-title__arrows',
-      1: 'ri-arrow-left-right-line',
-    }
-  })
-
-  const spanCcy = newElements({
-    tag: 'span',
-    textContent: item.ccy
-  })
-
-  const currenciesTitle = newElements({
-    tag: 'h4',
-    classList: {
-      0: 'currencies__search__item__currensy-title',
-      1: 'd-flex'
-    },
-    childNodes: {
-      0: spanCcy,
-      1: arrows,
-      2: spanBaseCcy,
-    }
+      span.textContent = parseFloat(item[el]).toFixed(2),
+      span.className = `currencies__search__item__currensy-text__${el}`
+     
+      li.append(span);
   })
   
-  newElements({
-    tag: 'li',
-    classList: {
-      0: 'currencies__search__item',
-      1: 'd-flex',
-    },
-    parentNode: '.js--currencies-search-list',
-    childNodes: {
-      0: currenciesTitle,
-      1: spanBuy,
-      2: spanSale,
-    }
-  });
+  currenciesTitle.append(spanCcy);
+  currenciesTitle.append(arrows)
+  currenciesTitle.append(spanBaseCcy);
+
+
+  document.querySelector('.js--currencies-search-list').append(li)
+
 }
+
+export const searchCurrenciesItem = (item, arr) => {
+  
+  return newElements(`
+  <li class="currencies__search__item d-flex">
+    <h4 class="currencies__search__item__currensy-title d-flex">
+      <span class="currencies__search__item__currensy-title__currensy">${item.currency}</span>
+
+      <i class="currencies__search__item__currensy-title__arrows ri-arrow-left-right-line"></i>
+
+      <span class="currencies__search__item__currensy-title__baseCurrency">${item.baseCurrency}</span>
+    </h4>
+      
+    <span class="currencies__search__item__currensy-text__${arr[0]}">${item[arr[0]].toFixed(2)}</span>
+    
+    <span class="currencies__search__item__currensy-text__${arr[1]}">${item[arr[1]].toFixed(2)}</span>
+
+  </li>
+`)
+};

@@ -1,11 +1,7 @@
 // Ajax
 // __________________________________________________
-const ajax = async (link) => {
-  const response = await axios.get(link).then(res => {
-    return res.data;
-  });
+export const ajax = async (link, params) => {
+  const response = await axios(link , { params });
   
-  return response;
+  return response.data;
 }
-
-export default ajax;

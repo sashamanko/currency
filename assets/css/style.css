@@ -4,9 +4,15 @@ __________________________________________________ */
 :root {
   --font-size: 18px;
   --border-radius: 10px;
+  --line-height: 1;
+
+  /* Blocks sizes */
+  --header-height: 70px;
+  --section-currencies: calc(100vh - var(--header-height) - var(--footer-height));
+  --footer-height: 30px;
 }
 
-:root[data-them='white'] {
+:root[data-theme='white'] {
   --background-1: #d1d1d1;
   --background-2: #ffffff;
   --border-color: #1d1d1d66;
@@ -15,7 +21,7 @@ __________________________________________________ */
   --box-shadow: 0 2px 5px 1px #403c4335;
 }
 
-:root[data-them='dark'] {
+:root[data-theme='dark'] {
   --background-1: #1b1b1b;
   --background-2: #252525;
   --border-color: #d1d1d166;
@@ -31,6 +37,23 @@ __________________________________________________ */
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  transition: background-color .3s;
+}
+
+/* width */
+*::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+*::-webkit-scrollbar-thumb {
+  background: var(--color-accent);
+  border-radius: 7px;
 }
 
 html {
@@ -38,7 +61,18 @@ html {
   font-family: 'Montserrat', sans-serif;
   font-size: var(--font-size);
   background: var(--background-1);
-  transition: background-color .3s;
+  line-height: var(--line-height);
+}
+
+body {
+  /* overflow-y: hidden; */
+  min-height: 100vh;
+  max-height: 100vh;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
 }
 
 ul {
@@ -51,6 +85,17 @@ button {
   border: none;
   background: transparent;
   cursor: pointer;
+}
+
+input,
+select {
+  max-width: 165px;
+  padding: 3px 7px;
+  color: var(--color);
+  background: var(--background-2);
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  outline: none;
 }
 
 h1 {
@@ -95,13 +140,26 @@ __________________________________________________ */
   justify-content: space-between;
   max-width: 1400px;
   width: 100%;
-  height: 70px;
+  height: var(--header-height);
+}
+
+.header__logo{
+  flex-direction: column;
+}
+
+.header__logo__title{
+  font-weight: 600;
+}
+
+.header__logo__link {
+  font-size: .666rem;
+  font-weight: 600;
+  margin-left: auto;
 }
 
 .header__them-btn {
   color: var(--color);
   font-size: 1.444rem;
-  transition: color .3s;
 }
 
 .header__them-btn:hover {
@@ -111,10 +169,11 @@ __________________________________________________ */
 /* Main
 __________________________________________________ */
 
-/* Currencies
+/* Section | Currencies
 __________________________________________________ */
 
 .currencies {
+  height: var(--section-currencies);
   padding: 12px 0;
 }
 
@@ -136,20 +195,33 @@ __________________________________________________ */
   box-shadow: var(--box-shadow);
 }
 
+.currencies__search__header__top {
+  margin-bottom: 10px;
+}
+
 .currencies__search__title {
   font-weight: 600;
 }
 
-.currencies__search__input {
-  max-width: 165px;
+.currencies__search__select {
   margin-left: auto;
-  padding: 0 7px;
-  color: var(--color);
-  font-size: 1rem;
-  background: var(--background-2);
-  border: 1px solid var(--border-color);
-  border-radius: 5px;
-  outline: none;
+}
+
+.currencies__search__input-text {
+  max-width: 150px;
+  font-size: .888rem;
+}
+
+.currencies__search__input-date {
+  width: 152px;
+  margin-left: auto;
+}
+
+.currencies__search__list {
+  height: calc(100vh - 125px - var(--header-height) - var(--footer-height) - 36px );
+  margin-top: 12px;
+  border-radius: 12px;
+  overflow-y: auto;
 }
 
 .currencies__search__list-title {
@@ -158,7 +230,7 @@ __________________________________________________ */
 }
 
 .currencies__search__list-title > span:first-child {
-  flex-basis: 48%;
+  flex-basis: 37%;
 }
 
 .currencies__search__list-title > span:last-child {
@@ -170,7 +242,7 @@ __________________________________________________ */
   content: '';
   position: absolute;
   top: 0;
-  right: 85px;
+  right: 87px;
   width: 1px;
   height: 100%;
   background: var(--color);
@@ -179,15 +251,18 @@ __________________________________________________ */
 
 .currencies__search__item {
   justify-content: space-between;
-  margin-top: 12px;
   padding: 12px;
   background: var(--background-2);
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
 }
 
+.currencies__search__item:not(:first-child) {
+  margin-top: 12px;
+}
+
 .currencies__search__item__currensy-title {
-  flex-basis: 47%;
+  flex-basis: 38%;
   align-items: center;
 }
 
@@ -210,7 +285,7 @@ __________________________________________________ */
 .footer__container {
   justify-content: center;
   align-items: center;
-  height: 30px;
+  height: var(--footer-height);
 }
 
 /* Media

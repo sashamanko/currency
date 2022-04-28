@@ -1,9 +1,19 @@
 <!DOCTYPE html>
-<html lang="uk" data-them="white">
+<html lang="uk" data-theme="white">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- JS | Wrapped local storage
+  __________________________________________________ -->
+  <script src="./node_modules/wrapped-localstorage/dist/wrapped-localstorage.min.js"></script>
+  <!-- For theme -->
+  <script>
+    WrappedLocalStorage.has("wrapped-theme") && WrappedLocalStorage.get("wrapped-theme") !== 'white'
+      ? document.documentElement.dataset.theme = 'dark'
+      : document.documentElement.dataset.theme = 'white'
+  </script>
 
   <!-- CSS | Google fonts 
   __________________________________________________ -->
@@ -27,9 +37,13 @@
   __________________________________________________ -->
   <header class="header">
     <div class="header__container container d-flex">
-      <h1 class="header__title">Курси валют</h1>
 
-      <button class="header__them-btn ri-sun-line js--them-btn"></button>
+      <div class="header__logo d-flex">
+        <h1 class="header__logo__title">Курси валют</h1>
+        <a class="header__logo__link" href="#">by Sasha Manko</a>
+      </div>
+
+      <button class="header__them-btn ri-sun-line js--theme-btn"></button>
     </div>
   </header>
 
@@ -43,9 +57,20 @@
         <div class="currencies__search">
 
           <div class="currencies__search__header">
-            <div class="d-flex">
+            <div class="currencies__search__header__top d-flex">
               <h2 class="currencies__search__title">Курси валют</h2>
-              <input class="currencies__search__input js--input" type="text" autocomplete="off">
+              
+              <select class="currencies__search__select js--select">
+                <option value="all">Всі</option>
+                <option value="NB">Національній банк</option>
+                <option value="PB">PrivatBank</option>
+              </select>
+            </div>
+            
+            <div class="d-flex ">
+              <input class="currencies__search__input-text js--input" type="text" placeholder="Код валюти" autocomplete="off">
+              
+              <input class="currencies__search__input-date js--date" type="date" autocomplete="off">
             </div>
 
             <hr>
@@ -58,7 +83,7 @@
 
           </div>
 
-          <ul class="currencies__search__lsit js--currencies-search-list">
+          <ul class="currencies__search__list js--currencies-search-list">
             <!-- JS -->
           </ul>
         </div>

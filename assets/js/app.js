@@ -1,7 +1,7 @@
 // Imports
 // __________________________________________________
-import them from "./components/them.js";
-import seachCarrencies from "./components/seachCarrencies.js";
+import { theme } from "./components/theme.js";
+import { render, seachCarrencies } from "./components/seachCarrencies.js";
 import { dateElement } from "./components/elements.js";
 
 // DOM content loaded
@@ -13,10 +13,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Functions 
   // __________________________________________________
-  them()
+  theme()
+  render()
   seachCarrencies()
 
   // Тимчасово
-  document.querySelector('.footer__container').append(dateElement())
+  document.querySelector('.footer__container').append(dateElement)
   
 });
