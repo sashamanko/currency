@@ -10,44 +10,6 @@ export const dateElement = newElements(`
   <time>${moment().locale('uk').format('L')}</time>
 `)
 
-// Search currencies item
-export const searchCurrenciesItem2 = (item, arr) => {
-
-  const li = document.createElement('ul');
-  const currenciesTitle = document.createElement('h4');
-  const spanBaseCcy = document.createElement('span');
-  const arrows = document.createElement('i');
-  const spanCcy = document.createElement('span');
-  
-  
-  li.className = 'currencies__search__item d-flex';
-  currenciesTitle.className = 'currencies__search__item__currensy-title d-flex'
-  spanBaseCcy.className = 'currencies__search__item__currensy-title__base-ccy';
-  arrows.className = 'currencies__search__item__currensy-title__arrows ri-arrow-left-right-line';
-
-  spanCcy.textContent = item.currency;
-  spanBaseCcy.textContent = item.baseCurrency;
-  
-  li.append(currenciesTitle)
-
-  arr.forEach(el => {
-    const span = document.createElement('span');
-
-      span.textContent = parseFloat(item[el]).toFixed(2),
-      span.className = `currencies__search__item__currensy-text__${el}`
-     
-      li.append(span);
-  })
-  
-  currenciesTitle.append(spanCcy);
-  currenciesTitle.append(arrows)
-  currenciesTitle.append(spanBaseCcy);
-
-
-  document.querySelector('.js--currencies-search-list').append(li)
-
-}
-
 export const searchCurrenciesItem = (item, arr) => {
   
   return newElements(`
